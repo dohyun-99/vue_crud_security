@@ -3,14 +3,14 @@ def gitBranch = 'master'
 def docker_registry = "ghcr.io"  
 
 // 본인 이미지 사용
-def imageName = "ghcr.io/kt-cloudnative/vue_crud_security"
+def imageName = "ghcr.io/dohyun-99/vue_crud_security"
 def git_ops_name = "frontend-gitops-kust"
 // 본인 Namespace
-def P_NAMESPACE = "devops"
+def P_NAMESPACE = "edu2"
 // 본인 slave pvc
-def P_SLAVE_PVC = "jenkins-edu-slave-pvc"
+def P_SLAVE_PVC = "jenkins-edu2-slave-pvc"
 // 본인 이메일
-def P_EMAIL = "shclub@gmail.com"
+def P_EMAIL = "dotti9213@gmail.com"
 
 
 def TAG = getTag(gitBranch)
@@ -75,4 +75,4 @@ def getTag(branchName){
     def DATETIME_TAG = new Date().format('yyyyMMddHHmmss')
     TAG = "${DATETIME_TAG}"
     return TAG
-}  
+}
