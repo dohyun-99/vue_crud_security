@@ -6,7 +6,7 @@ def docker_registry = "ghcr.io"
 def imageName = "ghcr.io/dohyun-99/vue_crud_security"
 def git_ops_name = "frontend-gitops-kust"
 // 본인 Namespace
-def P_NAMESPACE = "edu2"
+def P_NAMESPACE = "default"
 // 본인 slave pvc
 def P_SLAVE_PVC = "jenkins-edu2-slave-pvc"
 // 본인 이메일
