@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useQuasar } from 'quasar';
 import { useAuthStore } from '@/stores/useAuth';
 import router from '@/router';
+import { JSEncrypt } from 'jsencrypt';
 
 const authStore = useAuthStore();
 
@@ -13,7 +14,16 @@ const password = ref(null);
 
 const onSubmit = async () => {
   try {
-    await authStore.login(username.value, password.value);
+    // RSA 암호화 진행 start
+    const pw = password.value; // ref 변수에 접근
+    const publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtJeT5ZhycIlSQM8MXhxnHPMIbItUnqMRXWpqM0zBOXXitXdcduCQLszreKbO/RIsIxlE+mbXTJzfwif6eosdwAkRt05d4SGEGP6oWbywGgWSmGFLWto4SFRPCAGu9nYxlMRWaFoVFq+87WdDnDOcbiOJtdAGvu9fyrq8tDIVfHfBnwIdDMDy0Xv3jhvBqZTv67DNLD06H7RHq3ezclI4FhOfQmLYWnIlE49o00Y5nGlmRHz/k4OlUs2Tpg6NISvvyLkKKW7A2YU3x5oGaUXIcuaxUD8drwG/VhlsLqNVcE5WHrWB9ULK3hxTZlHAoRMtNqric4h3g15PrLTwqNfSuwIDAQAB";
+    // JSEncrypt 객체 생성
+    const encryptor = new JSEncrypt();
+    encryptor.setPublicKey(publicKey);
+    // 비밀번호를 RSA로 암호화
+    const encryptedData = encryptor.encrypt(pw);
+    // RSA암호화 진행 end
+    await authStore.login(username.value, encryptedData);
   } catch (error) {
     $q.notify({
       color: 'red-5',
